@@ -1,11 +1,12 @@
 
-fun encypt(plainText: String, key: CharArray): List<Char>{
+fun encypt(plainText: String, key: CharArray): String{
     val CharacterText: List<Char> = plainText.toList()
-    for(char in CharacterText){
-        val cryptText =
+    var cryptText = ""
+    for(i in 0..plainText.length-1){
+    cryptText = cryptText + key[CharacterText[i]]
     }
 
-    return CharacterText
+    return cryptText
 
 }
 
@@ -24,6 +25,6 @@ fun main() {
 
 
     val input = readln().toString()
-    print(encypt(input))
+    print(encypt(input, key))
 
 }
