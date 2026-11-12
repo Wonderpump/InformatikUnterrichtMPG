@@ -1,30 +1,31 @@
+import kotlin.text.get
 
-fun encypt(plainText: String, key: CharArray): String{
-    val CharacterText: List<Char> = plainText.toList()
-    var cryptText = ""
-    for(i in 0..plainText.length-1){
-    cryptText = cryptText + key[CharacterText[i]]
-    }
+fun encypt(plainText: String): Pair<String,MutableMap<Char,Char>>{
 
-    return cryptText
-
-}
-
-fun main() {
+    var cryptText = mutableListOf<Char>()
     val Characters = ('A'..'Z').toList().toCharArray()
     val key = ('A'..'Z').toList().toCharArray()
     key.shuffle()
-    val changer = mutableMapOf<Char, Char>()
+
+    val dictionary = mutableMapOf<Char, Char>()
     for (i in Characters.indices) {
-        changer[Characters[i]] = key[i]
+        dictionary[Characters[i]] = key[i]
     }
+    println(dictionary)
 
-    println(Characters)
-    println(key)
-    println(changer)
+    for(char in 0..plainText.length-1){
+        val encryptedChar = dictionary[plainText[char].uppercaseChar()] ?:plainText[char]
+        cryptText.add(encryptedChar)
 
+    }
+    var EncyptedText = cryptText.joinToString("")
+    return Pair(EncyptedText,dictionary)
+}
+
+fun main() {
 
     val input = readln().toString()
-    print(encypt(input, key))
+    val Crypt = (encypt(input))
+    println("Geheime Botschaft: " + Crypt.first)
 
 }
